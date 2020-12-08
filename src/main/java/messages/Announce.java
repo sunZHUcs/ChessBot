@@ -1,4 +1,4 @@
-package Messages;
+package messages;
 
 import org.javacord.api.entity.Icon;
 import org.javacord.api.entity.channel.ServerTextChannel;
@@ -12,12 +12,11 @@ import java.util.List;
 
 public class Announce implements MessageCreateListener {
 
+    public boolean dostuff = true;
     public String title = "";
     public String description = "";
     public String author = "";
     public List<ServerTextChannel> listofchannels;
-    public int channels = 0;
-    public boolean dostuff = true;
     public MessageAuthor focus = null;
 
     public void onMessageCreate(MessageCreateEvent event) {
@@ -72,7 +71,6 @@ public class Announce implements MessageCreateListener {
                     title = "";
                     description = "";
                     author = "";
-                    channels = 0;
                     dostuff = true;
                     event.getChannel().sendMessage("Announcement Cancelled");
                 }

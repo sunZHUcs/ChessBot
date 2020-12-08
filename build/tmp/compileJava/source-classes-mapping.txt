@@ -1,6 +1,6 @@
-Messages/EventListener.java
- Messages.EventListener
 ChessBot.java
  ChessBot
+Messages/EventListener.java
+ Messages.EventListener
 Messages/Announce.java
  Messages.Announce

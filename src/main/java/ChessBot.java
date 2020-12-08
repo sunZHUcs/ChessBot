@@ -1,5 +1,5 @@
-import Messages.Announce;
-import Messages.EventListener;
+import messages.Announce;
+import messages.EventListener;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 
