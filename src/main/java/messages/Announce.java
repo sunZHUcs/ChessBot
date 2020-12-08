@@ -15,7 +15,6 @@ public class Announce implements MessageCreateListener {
     public boolean dostuff = true;
     public String title = "";
     public String description = "";
-    public String author = "";
     public List<ServerTextChannel> listofchannels;
     public MessageAuthor focus = null;
 
@@ -31,9 +30,9 @@ public class Announce implements MessageCreateListener {
 
                     EmbedBuilder infomsg = new EmbedBuilder()
                             .setTitle("Announcement Setup")
-                            .setDescription("This command creates a new Announcement with a specified title, description, author, and target channel. " +
-                                    "\n\n The Focused User is " + focus)
-                            .addField("Instructions", "The required commands are: \n`settitle`, `setdescription`, `setauthor`, and `setchannel`" +
+                            .setDescription("This command creates a new Announcement with a specified title, description, and target channel. " +
+                                    "\n\n The Focused User is " + focus.getDisplayName() + ", ID: " + focus.getIdAsString())
+                            .addField("Instructions", "The required commands are: \n`settitle`, `setdescription`, and `setchannel`" +
                                     "\n Only the focused user can modify these fields. When all requirements have been met, enter `sendannouncement` to finish the announcement process.")
                             .setAuthor("Leigh Chess Club", "http://google.com/", "https://cdn.discordapp.com/attachments/750904863994675311/769736563638272060/chessclub.png")
                             .setColor(Color.CYAN);
@@ -49,9 +48,6 @@ public class Announce implements MessageCreateListener {
                 } else if (event.getMessageContent().startsWith(EventListener.prefix + "setdescription")) {
                     description = event.getMessageContent().substring(EventListener.prefix.length() + 15);
                     event.getChannel().sendMessage("Description set to: " + description);
-                } else if (event.getMessageContent().startsWith(EventListener.prefix + "setauthor")) {
-                    author = event.getMessageContent().substring(EventListener.prefix.length() + 10);
-                    event.getChannel().sendMessage("Author set to: " + author);
                 } else if (event.getMessageContent().startsWith(EventListener.prefix + "setchannel")) {
                     listofchannels = event.getMessage().getMentionedChannels();
                     event.getChannel().sendMessage("Channel set to: " + listofchannels);
@@ -62,7 +58,7 @@ public class Announce implements MessageCreateListener {
                     EmbedBuilder embed = new EmbedBuilder()
                             .setTitle(title)
                             .setDescription(description)
-                            .setAuthor(author, "http://google.com/", icon);
+                            .setAuthor(focus.getDisplayName(), "http://google.com/", icon);
                     listofchannels.get(0).sendMessage(embed);
 
                     focus = null;
@@ -70,7 +66,6 @@ public class Announce implements MessageCreateListener {
                     focus = null;
                     title = "";
                     description = "";
-                    author = "";
                     dostuff = true;
                     event.getChannel().sendMessage("Announcement Cancelled");
                 }
