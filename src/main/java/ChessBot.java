@@ -2,6 +2,7 @@ import messages.Announce;
 import messages.EventListener;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
+import tournament.TourneyCommand;
 
 public class ChessBot {
     public static void main(String[] args) {
@@ -10,6 +11,7 @@ public class ChessBot {
                 .setAllIntents().login().join();
         api.addMessageCreateListener(new EventListener());
         api.addMessageCreateListener(new Announce());
+        api.addMessageCreateListener(new TourneyCommand());
 
         api.updateActivity("Leigh Chess Club");
 

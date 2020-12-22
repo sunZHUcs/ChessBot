@@ -26,11 +26,15 @@ public class EventListener implements MessageCreateListener {
                         event.getChannel().sendMessage(event.getMessageContent().substring(prefix.length() + 10));
                     }
                 }
-
             }
+
+        }
+        if (event.getMessageContent().contains("suckmydick")) {
+            event.getChannel().sendMessage("slurp slurp daddy");
         }
 
     }
+
 }
 
 
