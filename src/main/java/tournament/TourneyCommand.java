@@ -133,7 +133,7 @@ public class TourneyCommand implements MessageCreateListener {
                 .addInlineField("Required Commands:", EventListener.prefix + "setdate\n" + EventListener.prefix + "setformat\n"
                         + EventListener.prefix + "setbrackets\n" + EventListener.prefix + "settime\n" + EventListener.prefix + "addplayers\n")
                 .addInlineField("Status: ", date + "\n" + format + "\n" + brackets + "\n" + time + "\n" + players)
-                .setColor(Color.white)
+                .setColor(Color.orange)
                 .setFooter("Leigh Chess Bot", "https://cdn.discordapp.com/attachments/750904863994675311/769736563638272060/chessclub.png");
         event.getChannel().sendMessage(embed);
     }
