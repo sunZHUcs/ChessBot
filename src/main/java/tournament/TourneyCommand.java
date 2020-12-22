@@ -1,8 +1,10 @@
 package tournament;
 
 import messages.EventListener;
+import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
+import org.javacord.api.event.Event;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 
@@ -13,6 +15,8 @@ import java.util.List;
 
 public class TourneyCommand implements MessageCreateListener {
 
+    MessageAuthor focus;
+    boolean process = false;
     public List<User> listofusers;
     final HashMap<User, Integer> Players = new HashMap<>();
     String date = "Not Set";
@@ -29,25 +33,77 @@ public class TourneyCommand implements MessageCreateListener {
 
                 if (message.startsWith(EventListener.prefix + "createtourney")) {
                     tourneyStatus(event);
+                    process = true;
+                    focus = event.getMessageAuthor();
                 } else if (message.startsWith(EventListener.prefix + "setdate")) {
-                    date = message.substring(EventListener.prefix.length() + "setdate".length());
+
+                    if(event.getMessageAuthor().equals(focus) && process) {
+                        date = message.substring(EventListener.prefix.length() + "setdate".length() + 1);
+                        event.getChannel().sendMessage("Date set to: " + date);
+                    }else{
+                        event.getChannel().sendMessage("No tourney is being created.");
+                    }
                 } else if (message.startsWith(EventListener.prefix + "setformat")) {
-                    format = message.substring(EventListener.prefix.length() + "setformat".length());
+                    if(event.getMessageAuthor().equals(focus) && process) {
+                        format = message.substring(EventListener.prefix.length() + "setformat".length() + 1);
+                        event.getChannel().sendMessage("Format set to: " + format);
+                    }else{
+                        event.getChannel().sendMessage("No tourney is being created.");
+                    }
                 } else if (message.startsWith(EventListener.prefix + "setbrackets")) {
-                    brackets = Integer.parseInt(message.substring(EventListener.prefix.length() + "setbrackets".length()));
+                    if(event.getMessageAuthor().equals(focus) && process) {
+                        brackets = Integer.parseInt(message.substring(EventListener.prefix.length() + "setbrackets".length() + 1));
+                        event.getChannel().sendMessage("Brackets set to: " + brackets);
+                    }else{
+                        event.getChannel().sendMessage("No tourney is being created.");
+                    }
                 } else if (message.startsWith(EventListener.prefix + "settime")) {
-                    time = Integer.parseInt(message.substring(EventListener.prefix.length() + "settime".length()));
+                    if(event.getMessageAuthor().equals(focus) && process) {
+                        time = Integer.parseInt(message.substring(EventListener.prefix.length() + "settime".length() + 1));
+                        event.getChannel().sendMessage("Time set to: " + time);
+                    }else{
+                        event.getChannel().sendMessage("No tourney is being created.");
+                    }
                 } else if (message.startsWith(EventListener.prefix + "addplayers")) {
-                    players++;
+                    if(event.getMessageAuthor().equals(focus) && process) {
+                        players++;
 
-                    int thisbracket = Integer.parseInt(message.substring(EventListener.prefix.length() + "addplayers".length(), EventListener.prefix.length() + "addplayers".length() + 2));
-                    listofusers = event.getMessage().getMentionedUsers();
+                        int thisbracket = Integer.parseInt(message.substring(EventListener.prefix.length() + "addplayers".length() + 1, EventListener.prefix.length() + "addplayers".length() + 2));
+                        listofusers = event.getMessage().getMentionedUsers();
 
-                    for (User listofuser : listofusers) {
-                        Players.put(listofuser, thisbracket);
+                        for (User listofuser : listofusers) {
+                            Players.put(listofuser, thisbracket);
+                        }
+
+                        event.getChannel().sendMessage(String.valueOf(Players));
+                    }else{
+                        event.getChannel().sendMessage("No tourney is being created.");
                     }
                 } else if (message.startsWith(EventListener.prefix + "starttourney")) {
-                    startTourney(event);
+                    if(event.getMessageAuthor().equals(focus) && process) {
+                        startTourney(event);
+                    }else{
+                        event.getChannel().sendMessage("No tourney is being created.");
+                    }
+                }else if(message.startsWith(EventListener.prefix + "tourneystatus")){
+                    if(event.getMessageAuthor().equals(focus) && process) {
+                        tourneyStatus(event);
+                    }else{
+                        event.getChannel().sendMessage("No tourney is being created.");
+                    }
+                }else if(message.startsWith(EventListener.prefix + "canceltourney")){
+
+                    if(process) {
+                        date = "Not Set";
+                        format = "Not Set";
+                        brackets = 0;
+                        time = 0;
+                        players = 0;
+                        Players.clear();
+                        event.getChannel().sendMessage("Tourney creation process cancelled.");
+                    }else{
+                        event.getChannel().sendMessage("No tourney is being created.");
+                    }
                 }
             }
         }
@@ -68,7 +124,7 @@ public class TourneyCommand implements MessageCreateListener {
 
 
         EmbedBuilder embed = new EmbedBuilder()
-                .setTitle("Tourney Creation Process Started")
+                .setTitle("Tourney Creation Process")
                 .setDescription("Create a new tourney. Set the date, time format, number of brackets, time between games, and players")
                 .addField("Information", "Complete all of the required commands below to create this tourney. To end this process, enter " + EventListener.prefix + "endtourney." +
                         "To see an updated status (resend this message with updated true/false on requirements), enter " + EventListener.prefix + "tourneystatus\n" + "When finished, enter " +
@@ -77,7 +133,7 @@ public class TourneyCommand implements MessageCreateListener {
                 .addInlineField("Required Commands:", EventListener.prefix + "setdate\n" + EventListener.prefix + "setformat\n"
                         + EventListener.prefix + "setbrackets\n" + EventListener.prefix + "settime\n" + EventListener.prefix + "addplayers\n")
                 .addInlineField("Status: ", date + "\n" + format + "\n" + brackets + "\n" + time + "\n" + players)
-                .setColor(Color.RED)
+                .setColor(Color.white)
                 .setFooter("Leigh Chess Bot", "https://cdn.discordapp.com/attachments/750904863994675311/769736563638272060/chessclub.png");
         event.getChannel().sendMessage(embed);
     }
