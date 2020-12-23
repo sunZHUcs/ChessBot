@@ -120,8 +120,6 @@ public class TourneyCommand implements MessageCreateListener {
     }
 
     public void tourneyStatus(MessageCreateEvent event) {
-
-
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle("Tourney Creation Process")
                 .setDescription("Create a new tourney. Set the date, time format, number of brackets, time between games, and players")

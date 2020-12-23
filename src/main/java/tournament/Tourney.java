@@ -44,6 +44,7 @@ public class Tourney {
                     pairings.add(key);
                 }
             }
+
             int index = randomgenerator.nextInt(pairings.size());
 
             User user1 = pairings.get(index);
@@ -59,7 +60,7 @@ public class Tourney {
             }
 
             try {
-                File myObj = new File("tournament/resources/12/1-1.txt" + tourney.date.substring(0, 2) + "/" + i + "-" + tourney.pairs + ".txt");
+                File myObj = new File("tournament/resources/" + tourney.date.substring(0, 2) + "/" + i + "-" + tourney.pairs + ".txt");
                 if (myObj.createNewFile()) {
                     System.out.println("File created: " + myObj.getName());
                 } else {
@@ -69,6 +70,7 @@ public class Tourney {
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
+
             //TODO: Write hashmap "paired" to file
         }
     }
