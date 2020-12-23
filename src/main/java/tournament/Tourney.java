@@ -12,11 +12,11 @@ import java.util.Random;
 public class Tourney {
 
     private int pairs;
-    private String date;
-    private String format;
-    private int brackets;
-    private int time;
-    private HashMap<User, Integer> Players;
+    private final String date;
+    private final String format;
+    private final int brackets;
+    private final int time;
+    private final HashMap<User, Integer> Players;
 
     public Tourney(String date, String format, int brackets, int time, HashMap<User, Integer> Players) {
 
