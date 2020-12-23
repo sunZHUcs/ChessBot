@@ -35,7 +35,7 @@ public class Announce implements MessageCreateListener {
                             .addField("Instructions", "The required commands are: \n`settitle`, `setdescription`, and `setchannel`" +
                                     "\n Only the focused user can modify these fields. When all requirements have been met, enter `sendannouncement` to finish the announcement process.")
                             .setAuthor("Leigh Chess Club", "http://google.com/", "https://cdn.discordapp.com/attachments/750904863994675311/769736563638272060/chessclub.png")
-                            .setColor(Color.CYAN);
+                            .setColor(Color.ORANGE);
                     event.getChannel().sendMessage(infomsg);
                     dostuff = false;
                 }
