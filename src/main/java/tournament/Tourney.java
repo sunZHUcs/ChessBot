@@ -70,8 +70,6 @@ public class Tourney {
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
-
-            //TODO: Write hashmap "paired" to file
         }
     }
 }
