@@ -1,12 +1,21 @@
 tournament/Tourney.java
  tournament.Tourney
+messages/FunFacts.java
+ messages.FunFacts
+messages/zoom/Zoom.java
+ messages.zoom.Zoom
+messages/MeetingReminder.java
+ messages.MeetingReminder
+ messages.MeetingReminder$1
 ChessBot.java
  ChessBot
 messages/EventListener.java
  messages.EventListener
-messages/FunFacts.java
- messages.FunFacts
 messages/Announce.java
  messages.Announce
+messages/zoom/ZoomListener.java
+ messages.zoom.ZoomListener
+messages/ReactionTime.java
+ messages.ReactionTime
 tournament/TourneyCommand.java
  tournament.TourneyCommand

@@ -1,5 +1,7 @@
 import messages.Announce;
 import messages.EventListener;
+import messages.ReactionTime;
+import messages.zoom.ZoomListener;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import tournament.TourneyCommand;
@@ -12,6 +14,8 @@ public class ChessBot {
         api.addMessageCreateListener(new EventListener());
         api.addMessageCreateListener(new Announce());
         api.addMessageCreateListener(new TourneyCommand());
+        api.addMessageCreateListener(new ZoomListener());
+        api.addMessageCreateListener(new ReactionTime());
 
         api.updateActivity("Leigh Chess Club");
 

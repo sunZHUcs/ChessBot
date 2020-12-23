@@ -38,30 +38,42 @@ public class TourneyCommand implements MessageCreateListener {
 
                     if (event.getMessageAuthor().equals(focus) && process) {
                         date = message.substring(EventListener.prefix.length() + "setdate".length() + 1);
-                        event.getChannel().sendMessage("Date set to: " + date);
+                        EmbedBuilder embed = new EmbedBuilder()
+                                .setTitle("Date Set To: " + date)
+                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                        event.getChannel().sendMessage(embed);
                     } else {
-                        event.getChannel().sendMessage("No tourney is being created.");
+                        noSuchTourney(event);
                     }
                 } else if (message.startsWith(EventListener.prefix + "setformat")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
                         format = message.substring(EventListener.prefix.length() + "setformat".length() + 1);
-                        event.getChannel().sendMessage("Format set to: " + format);
+                        EmbedBuilder embed = new EmbedBuilder()
+                                .setTitle("Format Set To: " + format)
+                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                        event.getChannel().sendMessage(embed);
                     } else {
-                        event.getChannel().sendMessage("No tourney is being created.");
+                        noSuchTourney(event);
                     }
                 } else if (message.startsWith(EventListener.prefix + "setbrackets")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
                         brackets = Integer.parseInt(message.substring(EventListener.prefix.length() + "setbrackets".length() + 1));
-                        event.getChannel().sendMessage("Brackets set to: " + brackets);
+                        EmbedBuilder embed = new EmbedBuilder()
+                                .setTitle("Brackets Set To: " + brackets)
+                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                        event.getChannel().sendMessage(embed);
                     } else {
-                        event.getChannel().sendMessage("No tourney is being created.");
+                        noSuchTourney(event);
                     }
                 } else if (message.startsWith(EventListener.prefix + "settime")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
                         time = Integer.parseInt(message.substring(EventListener.prefix.length() + "settime".length() + 1));
-                        event.getChannel().sendMessage("Time set to: " + time);
+                        EmbedBuilder embed = new EmbedBuilder()
+                                .setTitle("Time Set To: " + time)
+                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                        event.getChannel().sendMessage(embed);
                     } else {
-                        event.getChannel().sendMessage("No tourney is being created.");
+                        noSuchTourney(event);
                     }
                 } else if (message.startsWith(EventListener.prefix + "addplayers")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
@@ -76,19 +88,19 @@ public class TourneyCommand implements MessageCreateListener {
 
                         event.getChannel().sendMessage(String.valueOf(Players));
                     } else {
-                        event.getChannel().sendMessage("No tourney is being created.");
+                        noSuchTourney(event);
                     }
                 } else if (message.startsWith(EventListener.prefix + "starttourney")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
                         startTourney(event);
                     } else {
-                        event.getChannel().sendMessage("No tourney is being created.");
+                        noSuchTourney(event);
                     }
                 } else if (message.startsWith(EventListener.prefix + "tourneystatus")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
                         tourneyStatus(event);
                     } else {
-                        event.getChannel().sendMessage("No tourney is being created.");
+                        noSuchTourney(event);
                     }
                 } else if (message.startsWith(EventListener.prefix + "canceltourney")) {
 
@@ -99,22 +111,39 @@ public class TourneyCommand implements MessageCreateListener {
                         time = 0;
                         players = 0;
                         Players.clear();
-                        event.getChannel().sendMessage("Tourney creation process cancelled.");
+                        EmbedBuilder embed = new EmbedBuilder()
+                                .setTitle("Tourney Creation Process Cancelled!")
+                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                        event.getChannel().sendMessage(embed);
                     } else {
-                        event.getChannel().sendMessage("No tourney is being created.");
+                        noSuchTourney(event);
                     }
                 }
             }
         }
     }
 
+    public void noSuchTourney(MessageCreateEvent event) {
+        EmbedBuilder embed = new EmbedBuilder()
+                .setTitle("Error!")
+                .setDescription("No Tourney is being created.")
+                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+        event.getChannel().sendMessage(embed);
+    }
+
     public void startTourney(MessageCreateEvent event) {
 
         if (!date.equals("Not Set") && !format.equals("Not Set") && brackets != 0 && time != 0 && players != 0) {
             Tourney tourney = new Tourney(date, format, brackets, time, Players);
-            event.getMessage().getChannel().sendMessage("Tourney Successfully Created");
+            EmbedBuilder embed = new EmbedBuilder()
+                    .setTitle("Tourney successfully created (Started)")
+                    .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+            event.getChannel().sendMessage(embed);
         } else {
-            event.getMessage().getChannel().sendMessage("Not all required commands/parameters have been set!");
+            EmbedBuilder embed = new EmbedBuilder()
+                    .setTitle("Not all required commands/parameters have been set!")
+                    .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+            event.getChannel().sendMessage(embed);
             tourneyStatus(event);
         }
     }
