@@ -1,3 +1,5 @@
+tournament/Tourney.java
+ tournament.Tourney
 ChessBot.java
  ChessBot
 messages/EventListener.java
@@ -6,7 +8,5 @@ messages/FunFacts.java
  messages.FunFacts
 messages/Announce.java
  messages.Announce
-tournament/Tourney.java
- tournament.Tourney
 tournament/TourneyCommand.java
  tournament.TourneyCommand
