@@ -1,4 +1,4 @@
-package messages.zoom;
+package commands.essentials.zoom;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;

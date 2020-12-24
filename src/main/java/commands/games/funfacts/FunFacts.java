@@ -1,4 +1,4 @@
-package messages;
+package commands.games.funfacts;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;

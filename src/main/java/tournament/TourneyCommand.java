@@ -1,6 +1,6 @@
 package tournament;
 
-import messages.EventListener;
+import commands.Utilities;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
@@ -30,14 +30,14 @@ public class TourneyCommand implements MessageCreateListener {
 
             if (event.getMessageAuthor().isServerAdmin()) {
 
-                if (message.startsWith(EventListener.prefix + "createtourney")) {
+                if (message.startsWith(Utilities.prefix + "createtourney")) {
                     tourneyStatus(event);
                     process = true;
                     focus = event.getMessageAuthor();
-                } else if (message.startsWith(EventListener.prefix + "setdate")) {
+                } else if (message.startsWith(Utilities.prefix + "setdate")) {
 
                     if (event.getMessageAuthor().equals(focus) && process) {
-                        date = message.substring(EventListener.prefix.length() + "setdate".length() + 1);
+                        date = message.substring(Utilities.prefix.length() + "setdate".length() + 1);
                         EmbedBuilder embed = new EmbedBuilder()
                                 .setTitle("Date Set To: " + date)
                                 .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
@@ -45,9 +45,9 @@ public class TourneyCommand implements MessageCreateListener {
                     } else {
                         noSuchTourney(event);
                     }
-                } else if (message.startsWith(EventListener.prefix + "setformat")) {
+                } else if (message.startsWith(Utilities.prefix + "setformat")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
-                        format = message.substring(EventListener.prefix.length() + "setformat".length() + 1);
+                        format = message.substring(Utilities.prefix.length() + "setformat".length() + 1);
                         EmbedBuilder embed = new EmbedBuilder()
                                 .setTitle("Format Set To: " + format)
                                 .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
@@ -55,9 +55,9 @@ public class TourneyCommand implements MessageCreateListener {
                     } else {
                         noSuchTourney(event);
                     }
-                } else if (message.startsWith(EventListener.prefix + "setbrackets")) {
+                } else if (message.startsWith(Utilities.prefix + "setbrackets")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
-                        brackets = Integer.parseInt(message.substring(EventListener.prefix.length() + "setbrackets".length() + 1));
+                        brackets = Integer.parseInt(message.substring(Utilities.prefix.length() + "setbrackets".length() + 1));
                         EmbedBuilder embed = new EmbedBuilder()
                                 .setTitle("Brackets Set To: " + brackets)
                                 .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
@@ -65,9 +65,9 @@ public class TourneyCommand implements MessageCreateListener {
                     } else {
                         noSuchTourney(event);
                     }
-                } else if (message.startsWith(EventListener.prefix + "settime")) {
+                } else if (message.startsWith(Utilities.prefix + "settime")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
-                        time = Integer.parseInt(message.substring(EventListener.prefix.length() + "settime".length() + 1));
+                        time = Integer.parseInt(message.substring(Utilities.prefix.length() + "settime".length() + 1));
                         EmbedBuilder embed = new EmbedBuilder()
                                 .setTitle("Time Set To: " + time)
                                 .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
@@ -75,11 +75,11 @@ public class TourneyCommand implements MessageCreateListener {
                     } else {
                         noSuchTourney(event);
                     }
-                } else if (message.startsWith(EventListener.prefix + "addplayers")) {
+                } else if (message.startsWith(Utilities.prefix + "addplayers")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
                         players++;
 
-                        int thisbracket = Integer.parseInt(message.substring(EventListener.prefix.length() + "addplayers".length() + 1, EventListener.prefix.length() + "addplayers".length() + 2));
+                        int thisbracket = Integer.parseInt(message.substring(Utilities.prefix.length() + "addplayers".length() + 1, Utilities.prefix.length() + "addplayers".length() + 2));
                         listofusers = event.getMessage().getMentionedUsers();
 
                         for (User listofuser : listofusers) {
@@ -90,19 +90,19 @@ public class TourneyCommand implements MessageCreateListener {
                     } else {
                         noSuchTourney(event);
                     }
-                } else if (message.startsWith(EventListener.prefix + "starttourney")) {
+                } else if (message.startsWith(Utilities.prefix + "starttourney")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
                         startTourney(event);
                     } else {
                         noSuchTourney(event);
                     }
-                } else if (message.startsWith(EventListener.prefix + "tourneystatus")) {
+                } else if (message.startsWith(Utilities.prefix + "tourneystatus")) {
                     if (event.getMessageAuthor().equals(focus) && process) {
                         tourneyStatus(event);
                     } else {
                         noSuchTourney(event);
                     }
-                } else if (message.startsWith(EventListener.prefix + "canceltourney")) {
+                } else if (message.startsWith(Utilities.prefix + "canceltourney")) {
 
                     if (process) {
                         date = "Not Set";
@@ -152,12 +152,12 @@ public class TourneyCommand implements MessageCreateListener {
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle("Tourney Creation Process")
                 .setDescription("Create a new tourney. Set the date, time format, number of brackets, time between games, and players")
-                .addField("Information", "Complete all of the required commands below to create this tourney. To end this process, enter " + EventListener.prefix + "endtourney." +
-                        "To see an updated status (resend this message with updated true/false on requirements), enter " + EventListener.prefix + "tourneystatus\n" + "When finished, enter " +
-                        EventListener.prefix + "starttourney")
+                .addField("Information", "Complete all of the required commands below to create this tourney. To end this process, enter " + Utilities.prefix + "endtourney." +
+                        "To see an updated status (resend this message with updated true/false on requirements), enter " + Utilities.prefix + "tourneystatus\n" + "When finished, enter " +
+                        Utilities.prefix + "starttourney")
                 .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                .addInlineField("Required Commands:", EventListener.prefix + "setdate\n" + EventListener.prefix + "setformat\n"
-                        + EventListener.prefix + "setbrackets\n" + EventListener.prefix + "settime\n" + EventListener.prefix + "addplayers\n")
+                .addInlineField("Required Commands:", Utilities.prefix + "setdate\n" + Utilities.prefix + "setformat\n"
+                        + Utilities.prefix + "setbrackets\n" + Utilities.prefix + "settime\n" + Utilities.prefix + "addplayers\n")
                 .addInlineField("Status: ", date + "\n" + format + "\n" + brackets + "\n" + time + "\n" + players)
                 .setColor(Color.orange)
                 .setFooter("Leigh Chess Bot", "https://cdn.discordapp.com/attachments/750904863994675311/769736563638272060/chessclub.png");

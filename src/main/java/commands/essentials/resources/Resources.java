@@ -1,5 +1,6 @@
-package messages;
+package commands.essentials.resources;
 
+import commands.Utilities;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -20,7 +21,7 @@ public class Resources implements MessageCreateListener {
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
         String message = event.getMessageContent();
-        if (message.startsWith(EventListener.prefix + "resources")) {
+        if (message.startsWith(Utilities.prefix + "resources")) {
             try {
                 Scanner scanner = new Scanner(new File("src/main/java/messages/resources/resources.txt"));
 
@@ -37,7 +38,6 @@ public class Resources implements MessageCreateListener {
                     } else {
                         firstinline.append("\n").append(value);
                     }
-
                 }
                 StringBuilder secondinline = new StringBuilder();
                 for (String s : l) {
@@ -49,7 +49,6 @@ public class Resources implements MessageCreateListener {
                     }
 
                 }
-
                 EmbedBuilder infomsg = new EmbedBuilder()
                         .setTitle("Resources")
                         .setDescription("List of useful chess learning resources")
@@ -58,22 +57,16 @@ public class Resources implements MessageCreateListener {
                         .setAuthor("Leigh Chess Club", "http://google.com/", "https://cdn.discordapp.com/attachments/750904863994675311/769736563638272060/chessclub.png")
                         .setColor(Color.CYAN);
                 event.getChannel().sendMessage(infomsg);
-
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-        } else if (message.startsWith(EventListener.prefix + "addresource")) {
-            EmbedBuilder infomsg = new EmbedBuilder()
-                    .setTitle("Add Resource")
-                    .setDescription("To add a resource, enter both " + EventListener.prefix + "resourcename and " + EventListener.prefix + "resourcelink")
-                    .setAuthor("Leigh Chess Club", "http://google.com/", "https://cdn.discordapp.com/attachments/750904863994675311/769736563638272060/chessclub.png")
-                    .setColor(Color.ORANGE);
-            event.getChannel().sendMessage(infomsg);
 
+        } else if (message.startsWith(Utilities.prefix + "addresource")) {
+            Utilities.embedBuilder("Add Resource", "To add a resource, enter both " + Utilities.prefix + "resourcename and " + Utilities.prefix + "resourcelink", true, event);
             focus = event.getMessageAuthor();
-        } else if (message.startsWith(EventListener.prefix + "resourcename")) {
+        } else if (message.startsWith(Utilities.prefix + "resourcename")) {
             if (event.getMessageAuthor().equals(focus)) {
-                String newname = message.substring(EventListener.prefix.length() + "resourcename".length() + 1);
+                String newname = message.substring(Utilities.prefix.length() + "resourcename".length() + 1);
                 try {
                     Scanner scanner = new Scanner(new File("src/main/java/messages/resources/resources.txt"));
 
@@ -89,25 +82,19 @@ public class Resources implements MessageCreateListener {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                EmbedBuilder embed = new EmbedBuilder()
-                        .setTitle("New Resource Link Added: " + newname)
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                        .setColor(Color.orange);
-                event.getChannel().sendMessage(embed);
+                Utilities.embedBuilder("New Resource Link Added: " + newname, "", true, event);
             } else {
-                notFocus(event);
-
+                Utilities.embedBuilder("You are not the focused user! Either another resource update is in progress or you haven't started the update process by typing "
+                        + Utilities.prefix + "addresource", "", true, event);
             }
-
             y++;
             if (y == 2) {
                 focus = null;
             }
 
-        } else if (message.startsWith(EventListener.prefix + "resourcelink")) {
+        } else if (message.startsWith(Utilities.prefix + "resourcelink")) {
             if (event.getMessageAuthor().equals(focus)) {
-                String newlink = message.substring(EventListener.prefix.length() + "resourcelink".length() + 1);
+                String newlink = message.substring(Utilities.prefix.length() + "resourcelink".length() + 1);
                 try {
                     Scanner scanner = new Scanner(new File("src/main/java/messages/resources/resources.txt"));
 
@@ -123,26 +110,15 @@ public class Resources implements MessageCreateListener {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                EmbedBuilder embed = new EmbedBuilder()
-                        .setTitle("New Resource Link Added: " + newlink)
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                        .setColor(Color.orange);
-                event.getChannel().sendMessage(embed);
+                Utilities.embedBuilder("New Resource Link Added: " + newlink, "", true, event);
             } else {
-                notFocus(event);
+                Utilities.embedBuilder("You are not the focused user! Either another resource update is in progress or you haven't started the update process by typing "
+                        + Utilities.prefix + "addresource", "", true, event);
             }
             y++;
             if (y == 2) {
                 focus = null;
             }
         }
-    }
-
-    public void notFocus(MessageCreateEvent event) {
-        EmbedBuilder embed = new EmbedBuilder()
-                .setTitle("You are not the focused user! Either another resource update is in progress or you haven't started the update process by typing " + EventListener.prefix + "addresource")
-                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                .setColor(Color.orange);
-        event.getChannel().sendMessage(embed);
     }
 }

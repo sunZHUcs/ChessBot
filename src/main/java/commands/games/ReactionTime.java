@@ -1,5 +1,6 @@
-package messages;
+package commands.games;
 
+import commands.Utilities;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -20,7 +21,7 @@ public class ReactionTime implements MessageCreateListener {
         String message = event.getMessageContent();
         if (!event.getMessageAuthor().isBotUser()) {
 
-            if (message.startsWith(EventListener.prefix + "reactiontime")) {
+            if (message.startsWith(Utilities.prefix + "reactiontime")) {
 
                 focus = event.getMessageAuthor();
 
@@ -69,6 +70,7 @@ public class ReactionTime implements MessageCreateListener {
                 }
                 focus = null;
                 started = false;
+
             }
         }
     }

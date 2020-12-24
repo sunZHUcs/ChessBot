@@ -1,5 +1,6 @@
-package messages;
+package commands.essentials.attendance;
 
+import commands.Utilities;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
@@ -23,22 +24,25 @@ public class Attendance implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         String message = event.getMessageContent();
 
-        if (message.startsWith(EventListener.prefix + "attendance")) {
-            if (message.substring(EventListener.prefix.length() + "attendance".length()).isEmpty()) {
-                EmbedBuilder embed = new EmbedBuilder()
-                        .setTitle("Attendance")
-                        .setDescription("To use this command, input " + EventListener.prefix + "attendance [password]\n Every meeting the club officers will provide a password," +
-                                "which you must input here to take attendance and prove you were present at the meeting.")
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                        .setColor(Color.CYAN);
-                event.getChannel().sendMessage(embed);
+        if (message.startsWith(Utilities.prefix + "attendance")) {
+
+            //If the input command has no parameters, output help message
+            if (message.substring(Utilities.prefix.length() + "attendance".length()).isEmpty()) {
+                Utilities.embedBuilder("Attendance", "To use this command, input " + Utilities.prefix + "attendance [password]\n Every meeting the club officers will provide a password," +
+                        "which you must input here to take attendance and prove you were present at the meeting.", false, event);
+                //Else do this:
             } else {
                 List<String> string = Arrays.asList(message.split(" "));
                 String inputpass = string.get(1);
 
+                //Checking if attendance is being taken.
                 if (!password.equals("")) {
+
+                    //If input password is correct, do this:
                     if (inputpass.equals(password)) {
                         File file = new File("src/main/java/messages/resources/attendance/" + ld + ".txt");
+
+                        //If Attendance File exists, do this:
                         if (file.exists()) {
                             StringBuilder all = new StringBuilder();
                             try {
@@ -49,7 +53,6 @@ public class Attendance implements MessageCreateListener {
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
-
                             if (!all.toString().contains(event.getMessageAuthor().getDisplayName())) {
                                 try {
                                     FileWriter myWriter = new FileWriter(file, true);
@@ -60,26 +63,12 @@ public class Attendance implements MessageCreateListener {
                                 }
                                 attendanceTaken(event);
                             } else {
-                                EmbedBuilder embed = new EmbedBuilder()
-                                        .setTitle("Attendance")
-                                        .setDescription("You have already taken attendance for this meeting.")
-                                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                                        .setColor(Color.CYAN);
-                                event.getChannel().sendMessage(embed);
+                                Utilities.embedBuilder("Attendance", "You have already taken attendance for this meeting.", false, event);
                             }
-
-                        } else {
-                            try {
-                                if (file.createNewFile()) {
-                                    System.out.println("File created: " + file.getName());
-                                } else {
-                                    System.out.println("File already exists.");
-                                }
-                            } catch (IOException e) {
-                                System.out.println("An error occurred.");
-                                e.printStackTrace();
-                            }
-
+                        }
+                        //If Attendance File doesn't exist, do this:
+                        else {
+                            Utilities.fileBuilder(file);
                             try {
                                 FileWriter myWriter = new FileWriter(file);
                                 myWriter.write(event.getMessageAuthor().getDisplayName());
@@ -87,49 +76,44 @@ public class Attendance implements MessageCreateListener {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-
                             attendanceTaken(event);
                         }
-
-                    } else {
-                        EmbedBuilder embed = new EmbedBuilder()
-                                .setTitle("Attendance Failed")
-                                .setDescription("Incorrect Password")
-                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                                .setColor(Color.CYAN);
-                        event.getChannel().sendMessage(embed);
                     }
-                } else {
-                    EmbedBuilder embed = new EmbedBuilder()
-                            .setTitle("Attendance")
-                            .setDescription("Attendance is not currently being taken")
-                            .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                            .setColor(Color.CYAN);
-                    event.getChannel().sendMessage(embed);
+                    //If input password is incorrect, do this:
+                    else {
+                        Utilities.embedBuilder("Attendance", "Incorrect Password.", false, event);
+                    }
                 }
-
+                //If attendance is not being taken, output this.
+                else {
+                    Utilities.embedBuilder("Attendance", "Attendance is not currently being taken.", false, event);
+                }
             }
         }
 
+        //Admin only commands
         if (event.getMessageAuthor().isServerAdmin()) {
-            if (message.startsWith(EventListener.prefix + "setattendance")) {
-                List<String> string = Arrays.asList(message.split(" "));
-                String inputpass = string.get(1);
-                setPassword(inputpass);
+            if (message.startsWith(Utilities.prefix + "setattendance")) {
 
-                EmbedBuilder embed = new EmbedBuilder()
-                        .setTitle("Attendance")
-                        .setDescription("Attendance Password set to: " + inputpass)
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                        .setColor(Color.ORANGE);
-                event.getChannel().sendMessage(embed);
-            } else if (message.startsWith(EventListener.prefix + "viewattendance")) {
+                //If no parameters are entered, do this:
+                if (message.substring(Utilities.prefix.length() + "setattendance".length()).isEmpty()) {
+                    Utilities.embedBuilder("Attendance", "To set the attendance password, input " + Utilities.prefix + "setattendance [password]", true, event);
+                    //Else do this:
+                } else {
+                    List<String> string = Arrays.asList(message.split(" "));
+                    String inputpass = string.get(1);
+                    setPassword(inputpass);
+                    Utilities.embedBuilder("Attendance", "Attendance Password set to: " + inputpass, true, event);
+                }
+            } else if (message.startsWith(Utilities.prefix + "viewattendance")) {
 
                 File[] files = new File("src/main/java/messages/resources/attendance/").listFiles();
                 StringBuilder dates = new StringBuilder();
 
-                if (message.substring(EventListener.prefix.length() + "viewattendance".length()).isEmpty()) {
+                //If no parameters are entered, do this:
+                if (message.substring(Utilities.prefix.length() + "viewattendance".length()).isEmpty()) {
                     assert files != null;
+                    //If attendance file(s) exist, do this:
                     if (files.length != 0) {
                         for (File file : files) {
 
@@ -138,57 +122,47 @@ public class Attendance implements MessageCreateListener {
                             System.out.println(current);
                             dates.append(current).append("\n");
                         }
+                        //If no attendance file(s) exist, do this:
                     } else {
                         dates = new StringBuilder("No dates available (No attendance has been taken)");
                     }
+
+                    //Output attendance help message
                     EmbedBuilder embed = new EmbedBuilder()
                             .setTitle("Attendance")
-                            .setDescription("To view attendance, input " + EventListener.prefix + "viewattendance [date]")
+                            .setDescription("To view attendance, input " + Utilities.prefix + "viewattendance [date]")
                             .addField("List of Dates", dates.toString())
                             .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
                             .setColor(Color.ORANGE);
                     event.getChannel().sendMessage(embed);
+
+                    //If parameter (date) is entered, do this:
                 } else {
                     List<String> string = Arrays.asList(message.split(" "));
                     String inputpath = string.get(1);
 
                     File file = new File("src/main/java/messages/resources/attendance/" + inputpath + ".txt");
 
+                    //If Attendance File for that date exists, do this:
                     if (file.exists()) {
                         try {
                             Scanner scanner = new Scanner(file);
                             while (scanner.hasNextLine()) {
                                 dates.append(scanner.nextLine()).append("\n");
                             }
-
-                            EmbedBuilder embed = new EmbedBuilder()
-                                    .setTitle("Attendance: " + inputpath)
-                                    .setDescription(dates.toString())
-                                    .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                                    .setColor(Color.ORANGE);
-                            event.getChannel().sendMessage(embed);
-
+                            Utilities.embedBuilder("Attendance", dates.toString(), true, event);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
-
+                        //Else do this:
                     } else {
-                        EmbedBuilder embed = new EmbedBuilder()
-                                .setTitle("Attendance")
-                                .setDescription("Invalid Input")
-                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                                .setColor(Color.ORANGE);
-                        event.getChannel().sendMessage(embed);
+                        Utilities.embedBuilder("Attendance", "Invalid Input", true, event);
                     }
                 }
-            } else if (message.startsWith(EventListener.prefix + "endattendance")) {
+                //Ends Attendance
+            } else if (message.startsWith(Utilities.prefix + "endattendance")) {
                 password = "";
-                EmbedBuilder embed = new EmbedBuilder()
-                        .setTitle("Attendance")
-                        .setDescription("Attendance Ended")
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
-                        .setColor(Color.ORANGE);
-                event.getChannel().sendMessage(embed);
+                Utilities.embedBuilder("Attendance", "Attendance Ended", true, event);
             }
         }
     }

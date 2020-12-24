@@ -1,5 +1,6 @@
-package messages;
+package commands.admin;
 
+import commands.Utilities;
 import org.javacord.api.entity.Icon;
 import org.javacord.api.entity.channel.ServerTextChannel;
 import org.javacord.api.entity.message.MessageAuthor;
@@ -22,7 +23,7 @@ public class Announce implements MessageCreateListener {
 
         if (!event.getMessageAuthor().isBotUser() && event.getMessageAuthor().isServerAdmin()) {
 
-            if (event.getMessageContent().startsWith(EventListener.prefix + "announce")) {
+            if (event.getMessageContent().startsWith(Utilities.prefix + "announce")) {
                 if (focus != null) {
                     event.getChannel().sendMessage("Announcement already in process");
                 } else {
@@ -42,18 +43,17 @@ public class Announce implements MessageCreateListener {
             }
 
             if (event.getMessageAuthor().equals(focus) & !dostuff) {
-                if (event.getMessageContent().startsWith(EventListener.prefix + "settitle")) {
-                    title = event.getMessageContent().substring(EventListener.prefix.length() + 9);
-                    event.getChannel().sendMessage("Title set to: " + title);
-                } else if (event.getMessageContent().startsWith(EventListener.prefix + "setdescription")) {
-                    description = event.getMessageContent().substring(EventListener.prefix.length() + 15);
-                    event.getChannel().sendMessage("Description set to: " + description);
-                } else if (event.getMessageContent().startsWith(EventListener.prefix + "setchannel")) {
+                if (event.getMessageContent().startsWith(Utilities.prefix + "settitle")) {
+                    title = event.getMessageContent().substring(Utilities.prefix.length() + 9);
+                    Utilities.embedBuilder("Title set to: " + title, "", true, event);
+                } else if (event.getMessageContent().startsWith(Utilities.prefix + "setdescription")) {
+                    description = event.getMessageContent().substring(Utilities.prefix.length() + 15);
+                    Utilities.embedBuilder("Description set to: " + description, "", true, event);
+                } else if (event.getMessageContent().startsWith(Utilities.prefix + "setchannel")) {
                     listofchannels = event.getMessage().getMentionedChannels();
-                    event.getChannel().sendMessage("Channel set to: " + listofchannels);
-                } else if (event.getMessageContent().startsWith(EventListener.prefix + "sendannouncement")) {
-                    event.getChannel().sendMessage("Sending announcement");
-
+                    Utilities.embedBuilder("Channel set to: " + listofchannels, "", true, event);
+                } else if (event.getMessageContent().startsWith(Utilities.prefix + "sendannouncement")) {
+                    Utilities.embedBuilder("Sending announcement", "", true, event);
                     Icon icon = focus.getAvatar();
                     EmbedBuilder embed = new EmbedBuilder()
                             .setTitle(title)
@@ -67,7 +67,7 @@ public class Announce implements MessageCreateListener {
                     title = "";
                     description = "";
                     dostuff = true;
-                    event.getChannel().sendMessage("Announcement Cancelled");
+                    Utilities.embedBuilder("Announcement Cancelled", "", true, event);
                 }
             }
         }
