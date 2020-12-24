@@ -1,6 +1,5 @@
-package messages.resources;
+package messages;
 
-import messages.EventListener;
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;

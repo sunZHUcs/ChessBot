@@ -1,7 +1,4 @@
-import messages.Announce;
-import messages.EventListener;
-import messages.ReactionTime;
-import messages.resources.Resources;
+import messages.*;
 import messages.zoom.ZoomListener;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
@@ -18,6 +15,7 @@ public class ChessBot {
         api.addMessageCreateListener(new ZoomListener());
         api.addMessageCreateListener(new ReactionTime());
         api.addMessageCreateListener(new Resources());
+        api.addMessageCreateListener(new Attendance());
 
         api.updateActivity("Leigh Chess Club");
 

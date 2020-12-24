@@ -10,8 +10,8 @@ import java.awt.*;
 
 public class ZoomListener implements MessageCreateListener {
 
-    MessageAuthor focus;
     final Zoom zoom = new Zoom("976 6752 8895", "lhschess", "https://cuhsd.zoom.us/j/97667528895?pwd=TDFBeHBXMGZxbXMyanpJRlVIWDRaUT0");
+    MessageAuthor focus;
 
     @Override
     public void onMessageCreate(MessageCreateEvent event) {

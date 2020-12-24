@@ -1,9 +1,9 @@
-messages/FunFacts.java
- messages.FunFacts
 tournament/Tourney.java
  tournament.Tourney
 messages/zoom/Zoom.java
  messages.zoom.Zoom
+messages/FunFacts.java
+ messages.FunFacts
 messages/MeetingReminder.java
  messages.MeetingReminder
  messages.MeetingReminder$1
@@ -15,9 +15,11 @@ messages/Announce.java
  messages.Announce
 messages/zoom/ZoomListener.java
  messages.zoom.ZoomListener
-messages/ReactionTime.java
- messages.ReactionTime
+messages/Resources.java
+ messages.Resources
+messages/Attendance.java
+ messages.Attendance
 ChessBot.java
  ChessBot
-messages/resources/Resources.java
- messages.resources.Resources
+messages/ReactionTime.java
+ messages.ReactionTime
