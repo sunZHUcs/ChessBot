@@ -40,7 +40,7 @@ public class Attendance implements MessageCreateListener {
 
                     //If input password is correct, do this:
                     if (inputpass.equals(password)) {
-                        File file = new File("src/main/java/messages/resources/attendance/" + ld + ".txt");
+                        File file = new File("src/main/java/commands/essentials/attendance/logs" + ld + ".txt");
 
                         //If Attendance File exists, do this:
                         if (file.exists()) {
@@ -107,7 +107,7 @@ public class Attendance implements MessageCreateListener {
                 }
             } else if (message.startsWith(Utilities.prefix + "viewattendance")) {
 
-                File[] files = new File("src/main/java/messages/resources/attendance/").listFiles();
+                File[] files = new File("src/main/java/commands/essentials/attendance/logs/").listFiles();
                 StringBuilder dates = new StringBuilder();
 
                 //If no parameters are entered, do this:
@@ -117,7 +117,7 @@ public class Attendance implements MessageCreateListener {
                     if (files.length != 0) {
                         for (File file : files) {
 
-                            String current = file.toString().replace("src\\main\\java\\messages\\resources\\attendance\\", "");
+                            String current = file.toString().replace("src\\main\\java\\commands\\essentials\\attendance\\logs\\", "");
                             current = current.replace(".txt", "");
                             System.out.println(current);
                             dates.append(current).append("\n");
@@ -141,7 +141,7 @@ public class Attendance implements MessageCreateListener {
                     List<String> string = Arrays.asList(message.split(" "));
                     String inputpath = string.get(1);
 
-                    File file = new File("src/main/java/messages/resources/attendance/" + inputpath + ".txt");
+                    File file = new File("src/main/java/commands/essentials/attendance/logs/" + inputpath + ".txt");
 
                     //If Attendance File for that date exists, do this:
                     if (file.exists()) {
