@@ -30,7 +30,7 @@ public class GamesListener implements MessageCreateListener {
                         .setTitle("Random Number Generator")
                         .setDescription("To use this command, input " + Utilities.prefix + "randomnumber [lower bound] [upper bound]\n For example, " + Utilities.prefix + "randomnumber 1 5 would give you a random number between 1 and 5")
                         .addField("Warning!", "This only works with whole numbers.")
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
+                        .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar())
                         .setColor(Color.CYAN);
                 event.getChannel().sendMessage(embed);
             } else {
@@ -44,7 +44,7 @@ public class GamesListener implements MessageCreateListener {
 
                 EmbedBuilder embed = new EmbedBuilder()
                         .setTitle("Your random number is: " + random)
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
+                        .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar())
                         .setColor(Color.CYAN);
                 event.getChannel().sendMessage(embed);
             }
@@ -56,13 +56,13 @@ public class GamesListener implements MessageCreateListener {
             if (random == 1) {
                 EmbedBuilder embed = new EmbedBuilder()
                         .setTitle("You flipped heads!")
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
+                        .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar())
                         .setColor(Color.CYAN);
                 event.getChannel().sendMessage(embed);
             } else {
                 EmbedBuilder embed = new EmbedBuilder()
                         .setTitle("You flipped tails!")
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
+                        .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar())
                         .setColor(Color.CYAN);
                 event.getChannel().sendMessage(embed);
             }

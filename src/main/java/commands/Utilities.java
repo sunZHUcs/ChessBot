@@ -16,11 +16,11 @@ public class Utilities {
 
         if (description.equals("")) {
             embed.setTitle(title)
-                    .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                    .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
         } else {
             embed.setTitle(title)
                     .setDescription(description)
-                    .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                    .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
         }
         if (admin) {
             embed.setColor(Color.orange);

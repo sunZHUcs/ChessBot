@@ -132,7 +132,7 @@ public class Attendance implements MessageCreateListener {
                             .setTitle("Attendance")
                             .setDescription("To view attendance, input " + Utilities.prefix + "viewattendance [date]")
                             .addField("List of Dates", dates.toString())
-                            .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
+                            .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar())
                             .setColor(Color.ORANGE);
                     event.getChannel().sendMessage(embed);
 
@@ -175,7 +175,7 @@ public class Attendance implements MessageCreateListener {
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle("Attendance Taken")
                 .setDescription("You have been marked as present for the meeting on: " + ld)
-                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
+                .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar())
                 .setColor(Color.CYAN);
         event.getChannel().sendMessage(embed);
     }

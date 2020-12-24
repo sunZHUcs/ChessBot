@@ -23,6 +23,7 @@ public class TourneyCommand implements MessageCreateListener {
     int brackets = 0;
     int time = 0;
     int players = 0;
+    int numofdays = 0;
 
     public void onMessageCreate(MessageCreateEvent event) {
         String message = event.getMessageContent();
@@ -40,7 +41,7 @@ public class TourneyCommand implements MessageCreateListener {
                         date = message.substring(Utilities.prefix.length() + "setdate".length() + 1);
                         EmbedBuilder embed = new EmbedBuilder()
                                 .setTitle("Date Set To: " + date)
-                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                                .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
                         event.getChannel().sendMessage(embed);
                     } else {
                         noSuchTourney(event);
@@ -50,7 +51,7 @@ public class TourneyCommand implements MessageCreateListener {
                         format = message.substring(Utilities.prefix.length() + "setformat".length() + 1);
                         EmbedBuilder embed = new EmbedBuilder()
                                 .setTitle("Format Set To: " + format)
-                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                                .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
                         event.getChannel().sendMessage(embed);
                     } else {
                         noSuchTourney(event);
@@ -60,7 +61,7 @@ public class TourneyCommand implements MessageCreateListener {
                         brackets = Integer.parseInt(message.substring(Utilities.prefix.length() + "setbrackets".length() + 1));
                         EmbedBuilder embed = new EmbedBuilder()
                                 .setTitle("Brackets Set To: " + brackets)
-                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                                .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
                         event.getChannel().sendMessage(embed);
                     } else {
                         noSuchTourney(event);
@@ -70,7 +71,7 @@ public class TourneyCommand implements MessageCreateListener {
                         time = Integer.parseInt(message.substring(Utilities.prefix.length() + "settime".length() + 1));
                         EmbedBuilder embed = new EmbedBuilder()
                                 .setTitle("Time Set To: " + time)
-                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                                .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
                         event.getChannel().sendMessage(embed);
                     } else {
                         noSuchTourney(event);
@@ -87,6 +88,12 @@ public class TourneyCommand implements MessageCreateListener {
                         }
 
                         event.getChannel().sendMessage(String.valueOf(Players));
+                    } else {
+                        noSuchTourney(event);
+                    }
+                } else if (message.startsWith(Utilities.prefix + "numofdays")) {
+                    if (event.getMessageAuthor().equals(focus) && process) {
+
                     } else {
                         noSuchTourney(event);
                     }
@@ -113,7 +120,7 @@ public class TourneyCommand implements MessageCreateListener {
                         Players.clear();
                         EmbedBuilder embed = new EmbedBuilder()
                                 .setTitle("Tourney Creation Process Cancelled!")
-                                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                                .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
                         event.getChannel().sendMessage(embed);
                     } else {
                         noSuchTourney(event);
@@ -127,7 +134,7 @@ public class TourneyCommand implements MessageCreateListener {
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle("Error!")
                 .setDescription("No Tourney is being created.")
-                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
         event.getChannel().sendMessage(embed);
     }
 
@@ -137,12 +144,12 @@ public class TourneyCommand implements MessageCreateListener {
             Tourney tourney = new Tourney(date, format, brackets, time, Players);
             EmbedBuilder embed = new EmbedBuilder()
                     .setTitle("Tourney successfully created (Started)")
-                    .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                    .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
             event.getChannel().sendMessage(embed);
         } else {
             EmbedBuilder embed = new EmbedBuilder()
                     .setTitle("Not all required commands/parameters have been set!")
-                    .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                    .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
             event.getChannel().sendMessage(embed);
             tourneyStatus(event);
         }
@@ -155,7 +162,7 @@ public class TourneyCommand implements MessageCreateListener {
                 .addField("Information", "Complete all of the required commands below to create this tourney. To end this process, enter " + Utilities.prefix + "endtourney." +
                         "To see an updated status (resend this message with updated true/false on requirements), enter " + Utilities.prefix + "tourneystatus\n" + "When finished, enter " +
                         Utilities.prefix + "starttourney")
-                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
+                .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar())
                 .addInlineField("Required Commands:", Utilities.prefix + "setdate\n" + Utilities.prefix + "setformat\n"
                         + Utilities.prefix + "setbrackets\n" + Utilities.prefix + "settime\n" + Utilities.prefix + "addplayers\n")
                 .addInlineField("Status: ", date + "\n" + format + "\n" + brackets + "\n" + time + "\n" + players)

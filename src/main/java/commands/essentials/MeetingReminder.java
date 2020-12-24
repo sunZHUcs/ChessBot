@@ -21,7 +21,7 @@ public class MeetingReminder {
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle("Next Club Meeting")
                 .setDescription(ld.toString() + " at 2:15-2:45pm")
-                .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
+                .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar())
                 .setColor(Color.CYAN);
         event.getChannel().sendMessage(embed);
     }

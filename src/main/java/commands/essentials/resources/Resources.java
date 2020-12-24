@@ -54,7 +54,7 @@ public class Resources implements MessageCreateListener {
                         .setDescription("List of useful chess learning resources")
                         .addInlineField("Name", firstinline.toString())
                         .addInlineField("Link", secondinline.toString())
-                        .setAuthor("Leigh Chess Club", "http://google.com/", "https://cdn.discordapp.com/attachments/750904863994675311/769736563638272060/chessclub.png")
+                        .setAuthor("Leigh Chess Club", "https://discord.gg/phqkRhfV5h/", "https://cdn.discordapp.com/attachments/750904863994675311/769736563638272060/chessclub.png")
                         .setColor(Color.CYAN);
                 event.getChannel().sendMessage(infomsg);
             } catch (FileNotFoundException e) {

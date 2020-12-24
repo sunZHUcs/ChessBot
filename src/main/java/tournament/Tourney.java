@@ -17,6 +17,7 @@ public class Tourney {
     private final int time;
     private final HashMap<User, Integer> Players;
     private int pairs;
+    private int numofdays = 0;
 
     public Tourney(String date, String format, int brackets, int time, HashMap<User, Integer> Players) {
 
@@ -36,11 +37,12 @@ public class Tourney {
         boolean pairingdone = false;
 
         for (int i = 0; i < tourney.brackets; i++) {
+            pairings = null;
             for (Map.Entry<User, Integer> entry : tourney.Players.entrySet()) {
                 User key = entry.getKey();
                 int value = entry.getValue();
 
-                if (value == i) {
+                if (value == i + 1) {
                     pairings.add(key);
                 }
             }
@@ -60,7 +62,7 @@ public class Tourney {
             }
 
             try {
-                File myObj = new File("tournament/resources/" + tourney.date.substring(0, 2) + "/" + i + "-" + tourney.pairs + ".txt");
+                File myObj = new File("src/main/java/tournament/resources/" + tourney.date.substring(0, 2) + "/" + i + "-" + tourney.pairs + ".txt");
                 if (myObj.createNewFile()) {
                     System.out.println("File created: " + myObj.getName());
                 } else {

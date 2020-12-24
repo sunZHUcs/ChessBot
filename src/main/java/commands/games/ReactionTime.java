@@ -29,7 +29,7 @@ public class ReactionTime implements MessageCreateListener {
                         .setTitle("Test Your Reaction Time")
                         .setDescription("Type anything as fast as you can after the next message!")
                         .setColor(Color.CYAN)
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                        .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
                 event.getChannel().sendMessage(embed);
 
                 started = false;
@@ -42,7 +42,7 @@ public class ReactionTime implements MessageCreateListener {
                 }
                 EmbedBuilder embed2 = new EmbedBuilder()
                         .setTitle("REACT")
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
+                        .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar())
                         .setColor(Color.red);
                 event.getChannel().sendMessage(embed2);
                 started = true;
@@ -57,7 +57,7 @@ public class ReactionTime implements MessageCreateListener {
                             .setTitle("Reaction Test Results")
                             .setDescription("Your reaction time was: " + z + " milliseconds.")
                             .setColor(Color.CYAN)
-                            .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                            .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
                     event.getChannel().sendMessage(embed);
                 } else {
                     event.getChannel().sendMessage("this works im just bad");
@@ -65,7 +65,7 @@ public class ReactionTime implements MessageCreateListener {
                             .setTitle("Error!")
                             .setDescription("You typed before the reaction trigger! The test has been cancelled.")
                             .setColor(Color.CYAN)
-                            .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar());
+                            .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar());
                     event.getChannel().sendMessage(embed);
                 }
                 focus = null;

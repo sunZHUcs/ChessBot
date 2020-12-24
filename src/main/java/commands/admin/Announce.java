@@ -35,7 +35,7 @@ public class Announce implements MessageCreateListener {
                                     "\n\n The Focused User is " + focus.getDisplayName() + ", ID: " + focus.getIdAsString())
                             .addField("Instructions", "The required commands are: \n`settitle`, `setdescription`, and `setchannel`" +
                                     "\n Only the focused user can modify these fields. When all requirements have been met, enter `sendannouncement` to finish the announcement process.")
-                            .setAuthor("Leigh Chess Club", "http://google.com/", "https://cdn.discordapp.com/attachments/750904863994675311/769736563638272060/chessclub.png")
+                            .setAuthor("Leigh Chess Club", "https://discord.gg/phqkRhfV5h/", "https://cdn.discordapp.com/attachments/750904863994675311/769736563638272060/chessclub.png")
                             .setColor(Color.ORANGE);
                     event.getChannel().sendMessage(infomsg);
                     dostuff = false;
@@ -58,7 +58,7 @@ public class Announce implements MessageCreateListener {
                     EmbedBuilder embed = new EmbedBuilder()
                             .setTitle(title)
                             .setDescription(description)
-                            .setAuthor(focus.getDisplayName(), "http://google.com/", icon);
+                            .setAuthor(focus.getDisplayName(), "https://discord.gg/phqkRhfV5h/", icon);
                     listofchannels.get(0).sendMessage(embed);
 
                     focus = null;

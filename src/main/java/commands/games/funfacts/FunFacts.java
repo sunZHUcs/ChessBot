@@ -22,10 +22,10 @@ public class FunFacts {
         String title;
         String description;
 
-        try (Stream<String> lines = Files.lines(Paths.get("src/main/java/messages/resources/funfacts.txt"))) {
+        try (Stream<String> lines = Files.lines(Paths.get("src/main/java/commands/games/funfacts/funfacts.txt"))) {
             title = lines.skip(titl - 1).findFirst().get();
         }
-        try (Stream<String> lines = Files.lines(Paths.get("src/main/java/messages/resources/funfacts.txt"))) {
+        try (Stream<String> lines = Files.lines(Paths.get("src/main/java/commands/games/funfacts/funfacts.txt"))) {
             description = lines.skip(desc - 1).findFirst().get();
         }
 

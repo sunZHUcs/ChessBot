@@ -27,7 +27,7 @@ public class ZoomListener implements MessageCreateListener {
                         .setDescription("Update/Set New Zoom Information. Set the ID, Password, and Link")
                         .addField("Information", "Complete all of the required commands below to create this tourney. To end this process, enter " + Utilities.prefix + "endzoom" +
                                 "To see an updated status (resend this message with updated true/false on requirements), enter " + Utilities.prefix + "zoom\n")
-                        .setAuthor(event.getMessageAuthor().getDisplayName(), "http://google.com/", event.getMessageAuthor().getAvatar())
+                        .setAuthor(event.getMessageAuthor().getDisplayName(), "https://discord.gg/phqkRhfV5h/", event.getMessageAuthor().getAvatar())
                         .addInlineField("Required Commands:", Utilities.prefix + "setid\n" + Utilities.prefix + "setpass\n"
                                 + Utilities.prefix + "setlink")
                         .addInlineField("Status: ", zoom.getID() + "\n" + zoom.getPass() + "\n" + zoom.getLink())
